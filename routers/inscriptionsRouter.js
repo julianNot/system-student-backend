@@ -1,36 +1,49 @@
 const express = require('express');
+const InscriptionsService = require('./../services/inscriptionsService');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.json({
-    name: 'julian',
-  });
+const service = new InscriptionsService();
+
+router.get('/', async (req, res) => {
+  const inscription = await service.find();
+  res.json(inscription);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const {id} = req.params;
-  res.json({
-    name: 'julian',
-    id
-  });
+  const inscription = await service.findOne(id);
+  res.json(inscription);
 });
 
-router.post('/', (req, res) => {
-  const body = req.body;
-  res.json({
-    message: 'created',
-    data: body
-  })
+router.post('/', async (req, res) => {
+  try {
+    const body = req.body;
+    const newInscription = await service.create(body);
+    res.json(newInscription);
+  } catch (error) {
+    res.status(401).json({
+      message: error.message
+    })
+  }
 })
 
-router.get('/inscriptions', (req, res) => {
-  const { limit, offset } = req.query;
-  if( limit && offset) {
-    res.json({
-      name: 'Inscriptions limitadas',
-    });
+router.patch('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const inscription = await service.update(id, body);
+    res.json(inscription);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message
+    })
   }
-  res.send("No hay parametros")
-});
+})
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const inscription = await service.delete(id);
+  res.json(inscription);
+})
 
 module.exports = router;

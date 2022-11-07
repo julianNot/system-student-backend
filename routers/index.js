@@ -7,7 +7,7 @@ function routerApi(app) {
   const router = express.Router();
   app.use('/api/v1/', router)
   router.use('/students', studentsRouter)
-  router.use('/matter', matterRouter)
+  router.use('/matters', matterRouter)
   router.use('/inscriptions', inscriptionsRouter)
 }
 
