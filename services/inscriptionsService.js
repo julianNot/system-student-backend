@@ -8,12 +8,16 @@ class InscriptionsService {
   }
 
   async find() {
-    const response = await models.Inscription.findAll();
+    const response = await models.Inscription.findAll({
+      include: ['student', 'matter'],
+    });
     return response;
   }
 
   async findOne(id) {
-    const inscription = await models.Inscription.findByPk(id);
+    const inscription = await models.Inscription.findByPk(id, {
+      include: ['student', 'matter'],
+    });
     return inscription;
   }
 

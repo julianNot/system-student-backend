@@ -12,7 +12,7 @@ const InscriptionSchema = {
     defaultValue: uuidv4
   },
   id_estudiante : {
-    field: 'id_studiante',
+    field: 'id_estudiante',
     allowNull: false,
     type: DataTypes.INTEGER,
     references: {
@@ -42,10 +42,12 @@ class Inscription extends Model {
   static associate(models) {
     // asociaciones
     this.belongsTo(models.Student, {
-      as : 'student'
+      as : 'student',
+      foreignKey: 'id_estudiante'
     })
     this.belongsTo(models.Matter, {
-      as : 'matter'
+      as : 'matter',
+      foreignKey: 'id_materia'
     })
   }
 
