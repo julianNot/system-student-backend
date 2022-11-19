@@ -5,7 +5,7 @@ const router = express.Router();
 const service = new StudentsService();
 
 router.get('/', async (req, res) => {
-  const students = await service.find();
+  const students = await service.find(req.query);
   res.json(students);
 });
 

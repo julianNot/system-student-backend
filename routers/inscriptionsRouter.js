@@ -5,7 +5,7 @@ const router = express.Router();
 const service = new InscriptionsService();
 
 router.get('/', async (req, res) => {
-  const inscription = await service.find();
+  const inscription = await service.find(req.query);
   res.json(inscription);
 });
 

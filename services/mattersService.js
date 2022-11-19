@@ -7,8 +7,17 @@ class MattersService {
     return newSMatter;
   }
 
-  async find() {
-    const response = await models.Matter.findAll();
+  async find(query) {
+    const options = {
+      offset: 0,
+      limit: 10
+    }
+    const {offset, limit} = query
+    if(offset && limit) {
+      options.offset = offset;
+      options.limit = limit;
+    }
+    const response = await models.Matter.findAll(options);
     return response;
   }
 

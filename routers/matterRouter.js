@@ -5,7 +5,7 @@ const router = express.Router();
 const service = new MattersService();
 
 router.get('/', async (req, res) => {
-  const matters = await service.find();
+  const matters = await service.find(req.query);
   res.json(matters);
 });
 

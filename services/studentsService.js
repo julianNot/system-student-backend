@@ -17,8 +17,17 @@ class StudentsService {
     return newStudent;
   }
 
-  async find() {
-    const response = await models.Student.findAll();
+  async find(query) {
+    const options = {
+      offset: 0,
+      limit: 10
+    }
+    const {offset, limit} = query
+    if(offset && limit) {
+      options.offset = offset;
+      options.limit = limit;
+    }
+    const response = await models.Student.findAll(options);
     return response;
   }
 

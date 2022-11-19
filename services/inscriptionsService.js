@@ -7,10 +7,18 @@ class InscriptionsService {
     return newInscription;
   }
 
-  async find() {
-    const response = await models.Inscription.findAll({
+  async find(query) {
+    const options = {
       include: ['student', 'matter'],
-    });
+      offset: 0,
+      limit: 10
+    }
+    const {offset, limit} = query
+    if(offset && limit) {
+      options.offset = offset;
+      options.limit = limit;
+    }
+    const response = await models.Inscription.findAll(options);
     return response;
   }
 
