@@ -4,7 +4,7 @@ const MATTER_TABLE = 'materias';
 
 const MatterSchema = {
   id_materia : {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     primaryKey:true
   },
   codigo_materia : {
@@ -14,10 +14,10 @@ const MatterSchema = {
     type: DataTypes.STRING
   },
   creditos_materia :{
-    type: DataTypes.NUMBER
+    type: DataTypes.INTEGER
   },
   cupos: {
-    type: DataTypes.NUMBER
+    type: DataTypes.INTEGER
   },
   estado_activo :{
     type: DataTypes.BOOLEAN,
@@ -26,8 +26,12 @@ const MatterSchema = {
 }
 
 class Matter extends Model {
-  static associate() {
+  static associate(models) {
     // asociaciones
+    this.hasMany(models.Inscription, {
+      as: 'inscriptions',
+      foreignKey: 'id_materia'
+    })
   }
 
   static config(sequelize) {

@@ -9,28 +9,38 @@ const StudentSchema = {
     type: DataTypes.INTEGER
   },
   codigo_estudiante : {
-      type: DataTypes.INTEGER
+    type: DataTypes.INTEGER
   },
   tipo_documento :{
-      type: DataTypes.STRING
+    type: DataTypes.STRING
   },
   numero_documento :{
-      type: DataTypes.STRING
+    type: DataTypes.STRING
   },
   nombres : {
-      type: DataTypes.STRING
+    type: DataTypes.STRING
   },
   apellidos :{
-      type: DataTypes.STRING
+    type: DataTypes.STRING
   },
   estado :{
-      type: DataTypes.STRING
+    type: DataTypes.STRING
   },
+  image :{
+    type: DataTypes.STRING
+  },
+  password :{
+    type: DataTypes.STRING
+  }
 }
 
 class Student extends Model {
-  static associate() {
+  static associate(models) {
     // asociaciones
+    this.hasMany(models.Inscription, {
+      as: 'inscriptions',
+      foreignKey: 'id_estudiante'
+    })
   }
 
   static config(sequelize) {
