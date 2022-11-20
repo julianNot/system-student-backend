@@ -20,12 +20,17 @@ class StudentsService {
   async find(query) {
     const options = {
       offset: 0,
-      limit: 10
+      limit: 10,
+      where: {}
     }
     const {offset, limit} = query
     if(offset && limit) {
       options.offset = offset;
       options.limit = limit;
+    }
+    const {estado} = query
+    if(estado) {
+      options.where.estado = estado
     }
     const response = await models.Student.findAll(options);
     return response;
@@ -33,7 +38,9 @@ class StudentsService {
 
   async findByCodeStudent(codigo_estudiante) {
 
-    const response = await models.Student.findByPk(codigo_estudiante);
+    const response = await models.Student.findOne({
+      where: {codigo_estudiante: codigo_estudiante}
+    });
     return response;
   }
 
