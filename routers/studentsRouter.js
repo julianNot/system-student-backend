@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport')
 const StudentsService = require('./../services/studentsService');
 const router = express.Router();
 
@@ -9,7 +10,9 @@ router.get('/', async (req, res) => {
   res.json(students);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id',
+  passport.authenticate('jwt', {session: false}),
+  async (req, res) => {
   const {id} = req.params;
   const student = await service.findOne(id);
   res.json(student);
