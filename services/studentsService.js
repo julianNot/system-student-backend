@@ -20,7 +20,7 @@ class StudentsService {
   async find(query) {
     const options = {
       offset: 0,
-      limit: 10,
+      limit: 15,
       where: {}
     }
     const {offset, limit} = query
