@@ -10,9 +10,7 @@ router.get('/', async (req, res) => {
   res.json(students);
 });
 
-router.get('/:id',
-  passport.authenticate('jwt', {session: false}),
-  async (req, res) => {
+router.get('/:id', async (req, res) => {
   const {id} = req.params;
   const student = await service.findOne(id);
   res.json(student);
